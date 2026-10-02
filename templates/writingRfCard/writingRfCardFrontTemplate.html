@@ -18,11 +18,6 @@
     <div id="svg_data" style='display:none' ; vertical-align: middle>{{svg_data}}</div>
   </div>
   <div class="kinfo">
-    <ol>
-      <li>発音: <br>
-        <ul id="reading"></ul>
-    </ol>
-    <hr>
     <span>※ 漢越: {{hanviet}}</span>
     <br>
     <span>※ 한글: {{hangul}}</span>
@@ -109,7 +104,7 @@
 </script>
 <script>
 (function () {
-  const data = "{{readingsss}}".trim();
+  const data = "".trim();
   const ul = document.getElementById("reading");
   if (!ul || !data) return;
 
