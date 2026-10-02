@@ -1,0 +1,130 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div class="glossary">
+    <span>構成要素: {{elements}}、{{extra_elements}}</span>
+    <br>
+    <span>部分: {{kanji_parts}}</span>
+    <br>
+    <span>含まれる: {{part_of}}</span>
+    <hr>
+    <span>部首: {{radical}}</span>
+    <br>
+    <span>部首の異体字: {{radicalvar}}</span>
+    <br>
+    <span>音符: {{phonetic}}　|　形符:　{{idc}}</span>
+    <br>
+    <span>漢字の種類:　{{typeofkanji}}</span>
+    <hr>
+		<div style="text-align: center; display: block;"><div class="svg-container">{{stroke}}</div></div>
+		<hr>
+    <div>
+      <span style="font-weight: #;">似ている漢字：</span>
+      <span>{{Visually-Similar-Kanji}}</span>
+    </div>
+    <div>
+      <span style="font-weight: #;">対義語：</span>
+      <span>{{antonyms}}</span>
+    </div>
+		<div>
+      <span style="font-weight: #;">同義語：</span>
+      <span>{{synonyms}}</span>
+		</div>
+  </div>
+  <div class="onkun"> 名乗り: {{nanori}}
+    <hr> 訓読み: {{kunyomi}}
+    <hr> 音読み: {{onyomi}}
+  </div>
+  <div class="kinfo">
+    <ol>
+      <li>発音: <br>
+        <ul id="reading"></ul>
+      </li>
+      <li>鰐蟹の語彙: <br>
+        <ul id="vocab"></ul>
+      </li>
+      <li>頻出単語15個: <br>
+				 <ul id="common"></ul>
+      </li>
+    </ol>
+  </div>
+<script>
+function renderVocab(fieldValue, ulId) {
+  const data = fieldValue.trim();
+  const ul = document.getElementById(ulId);
+  if (!ul || !data) return;
+
+  data.split(/<br\s*\/?>|\n/).forEach(line => {
+    const parts = line.split("|");
+
+    const word = (parts[0] || "").trim();
+    const reading = (parts[1] || "").trim();
+    const meaning = (parts[2] || "").trim();
+
+    if (!word) return;
+
+    const li = document.createElement("li");
+
+    // No popup if both missing
+    if (!reading && !meaning) {
+      li.textContent = word;
+      ul.appendChild(li);
+      return;
+    }
+
+    const formattedMeaning = meaning
+      ? meaning.replace(/,\s*/g, "<br>")
+      : "—";
+
+    li.innerHTML = `
+      <span class="item">
+        ${word}
+        <span class="item_info">
+          ${reading ? `読み: ${reading}<br>` : ""}
+          ${meaning ? `意味:<br>${formattedMeaning}` : ""}
+        </span>
+      </span>
+    `;
+
+    ul.appendChild(li);
+  });
+}
+
+// Use it
+renderVocab(String.raw`{{vocab}}`, "vocab");
+renderVocab(String.raw`{{15commonW}}`, "common");
+</script>
+
+<script>
+(function () {
+  const data = String.raw`{{readingsss}}`.trim();
+  const ul = document.getElementById("reading");
+  if (!ul || !data) return;
+
+  data.split(/<br\s*\/?>|\n/).forEach(line => {
+    line = line.trim();
+    if (!line) return;
+
+    const li = document.createElement("li");
+    li.textContent = line;
+    ul.appendChild(li);
+  });
+})();
+</script>
+<script>
+document.addEventListener("click", function (e) {
+  const item = e.target.closest(".item");
+
+  document.querySelectorAll(".item.show").forEach(el => {
+    if (el !== item) el.classList.remove("show");
+  });
+
+  if (item) {
+    item.classList.toggle("show");
+    e.stopPropagation();
+  }
+});
+</script>
+</body>

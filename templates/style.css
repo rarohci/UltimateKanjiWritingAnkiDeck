@@ -1,0 +1,163 @@
+.card {
+  font-family: Arial, sans-serif;
+  font-size: 1.2em;
+  text-align: center;
+  color: #ffffff;
+  background-color: #2d2d2d;
+  width: 90%;
+  margin: 0 auto;
+  padding: 15px;
+}
+.kinfo {
+  background-color: #009688;
+  padding: 15px 30px;
+  border-radius: 0 0 10px 10px;
+  color: #ffffff;
+  text-align: left;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 24px;
+  line-height: 1.5em;
+}
+.onkun {
+  background-color: #ffffff;
+  padding: 15px 30px;
+  color: #333333;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 24px;
+  line-height: 1.5em;
+  text-align: left;
+}
+.glossary {
+  background-color: #c7c7ae;
+  border-radius: 10px 10px 0 0;
+  padding: 15px 30px;
+  color: #2f4f4f;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 24px;
+  line-height: 1.5em;
+  text-align: left;
+}
+.glossary .character {
+  font-size: 48px; /* Default size for the main character */
+  text-align: center;
+	padding-bottom: 10px;
+}
+.svg-container img {
+    max-width: 100%;  /* Makes the image scale down to fit the container */
+    height: auto;     /* Maintains the aspect ratio */
+    display: block;   /* Prevents any inline spacing issues */
+    margin: 0 auto;   /* Centers the image horizontally if it's smaller than the container */
+}
+/* Responsive Styles */
+@media (max-width: 600px) {
+  .kinfo, .onkun, .glossary, .grid {
+    font-size: 20px;
+  }
+	.svg-container img {
+  width: 50%;   /* Set the image to be 80% of the container's width */
+  height: auto; /* Keep aspect ratio */
+  }
+}
+@media (max-width: 400px) {
+  .kinfo, .onkun, .glossary, .grid {
+    font-size: 18px;
+  }
+  .svg-container img {
+    width: 50%;   /* Set the image to be 70% of the container's width */
+    height: auto;
+  }
+}
+@media (min-width: 601px) {
+  .kinfo, .onkun, .glossary, .gird {
+    font-size: 28px;
+  }
+  .svg-container img {
+    width: 50%;  /* Set the image to be 100% of the container's width */
+    height: auto;
+  }
+}
+.kinfo ul {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.kinfo ul li {
+  width: 50%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+.kinfo ul li::before {
+  content: '▪';
+  margin-right: 5px;
+  font-size: 24px;
+}
+.kinfo ul li:empty {
+  display: none;
+}
+/* Hide ruby text by default, show on hover */
+ruby rt {
+  visibility: hidden;
+}
+ruby:hover rt {
+  visibility: visible;
+}
+@font-face {
+  font-family: 'Noto Serif JP';
+  src: url('NotoSerifJP-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 700; /* Adjust this range based on the font's weight capabilities */
+}
+body {
+  font-family: 'Noto Serif JP', serif;
+}
+.grid-color {
+    margin: 10px;
+    background-color: var(--kanji-grid);
+    padding: 5px;
+    -webkit-box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.5);
+}
+.grid {
+  background-color: #c7c7ae;
+  color: #333333;
+  text-align: center;
+	padding-bottom: 20px;
+}
+.item {
+  position: relative;
+  cursor: pointer;
+}
+.item_info {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  top: 120%;
+  bottom: auto;
+  transform: translateX(-50%);
+  background: #222;
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  /* Size control */
+  width: max-content;
+  max-width: min(90vw, 360px);
+  max-height: 60vh;
+  white-space: normal;
+  word-break: break-word;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease;
+  z-index: 999;
+  pointer-events: none;
+}
+.item:hover .item_info,
+.item.show .item_info {
+  opacity: 1;
+  visibility: visible;
+}

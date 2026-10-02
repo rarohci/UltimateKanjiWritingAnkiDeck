@@ -1,0 +1,5 @@
+# Excel file
+*.xlsx
+
+#decks collection
+*.colpkg
