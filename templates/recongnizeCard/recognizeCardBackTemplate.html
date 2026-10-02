@@ -7,16 +7,8 @@
     <div style="text-align: center; display: block;"><div class="svg-container">{{stroke}}</div></div>
     <hr>
     <div>
-      <span style="font-weight: #;">似ている漢字：</span>
+      <span style="font-weight: 0;">似ている漢字：</span>
       <span>{{Visually-Similar-Kanji}}</span>
-    </div>
-    <div>
-      <span style="font-weight: #;">対義語：</span>
-      <span>{{antonyms}}</span>
-    </div>
-    <div>
-      <span style="font-weight: #;">同義語：</span>
-      <span>{{synonyms}}</span>
     </div>
 		<hr>
     <span>構成要素: {{elements}}、{{extra_elements}}</span>
@@ -43,9 +35,6 @@
   </div>
   <div class="kinfo">
     <ol>
-      <li>発音: <br>
-        <ul id="reading"></ul>
-      </li>
       <li>鰐蟹の語彙: <br>
         <ul id="vocab"></ul>
       </li>
@@ -101,7 +90,7 @@ renderVocab(String.raw`{{15commonW}}`, "common");
 </script>
 <script>
 (function () {
-  const data = String.raw`{{readingsss}}`.trim();
+  const data = String.raw``.trim();
   const ul = document.getElementById("reading");
   if (!ul || !data) return;
 

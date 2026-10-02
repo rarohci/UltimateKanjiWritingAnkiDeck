@@ -21,17 +21,10 @@
 		<div style="text-align: center; display: block;"><div class="svg-container">{{stroke}}</div></div>
 		<hr>
     <div>
-      <span style="font-weight: #;">似ている漢字：</span>
+      <span style="font-weight: 0;">似ている漢字：</span>
       <span>{{Visually-Similar-Kanji}}</span>
     </div>
-    <div>
-      <span style="font-weight: #;">対義語：</span>
-      <span>{{antonyms}}</span>
-    </div>
-    <div>
-      <span style="font-weight: #;">同義語：</span>
-      <span>{{synonyms}}</span>
-		</div><hr>{{glossary}}<hr>{{hanviet_imi}}<br>{{imi_explanation}}
+<hr>{{glossary}}<hr>{{hanviet_imi}}<br>{{imi_explanation}}
   </div>
   <div class="kinfo">
     <ol>
@@ -92,7 +85,7 @@ renderVocab(String.raw{{15commonW}}, "common");
 </script>
 <script>
 (function () {
-  const data = String.raw`{{readingsss}}`.trim();
+  const data = String.raw``.trim();
   const ul = document.getElementById("reading");
   if (!ul || !data) return;
 
