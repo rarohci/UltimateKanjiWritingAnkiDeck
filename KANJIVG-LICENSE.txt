@@ -1,0 +1,19 @@
+KanjiVG attribution and license
+================================
+
+The kanji stroke graphics used by this deck originate from KanjiVG.
+
+KanjiVG is copyright Ulrich Apel and is released under the Creative Commons
+Attribution-Share Alike 3.0 license (CC BY-SA 3.0):
+
+https://creativecommons.org/licenses/by-sa/3.0/
+
+KanjiVG project site and documentation:
+
+https://kanjivg.tagaini.net/
+
+This deck converts KanjiVG SVG stroke paths into the generated stroke and
+median data used by its Anki writing cards. The original KanjiVG SVG source
+collection is not redistributed as a separate source folder in this repository.
+The generated media and converted data remain subject to the applicable
+KanjiVG attribution and share-alike terms.
