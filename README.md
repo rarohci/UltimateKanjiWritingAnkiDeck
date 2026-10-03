@@ -21,6 +21,12 @@ card.
 The package also contains 6,396 SVG media files and the Noto Serif JP font.
 All cards are new when the package is generated; it contains no review history.
 
+## Card previews
+
+![Learning card preview](docs/preview-learning-card.svg)
+
+![Writing card preview](docs/preview-writing-card.svg)
+
 ## Install
 
 1. Open Anki.
