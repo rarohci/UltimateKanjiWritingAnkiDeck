@@ -165,9 +165,14 @@ The included Noto Serif JP font is distributed with its `_NotoSerifJP-OFL.txt`
 license file. See [LICENSE.md](LICENSE.md) for the repository license breakdown
 and [CHANGELOG.md](CHANGELOG.md) for the v1.2.0 changes.
 
-The origins and redistribution terms of all vocabulary, dictionary definitions,
-and multilingual reference fields have not yet been fully documented. The
-project's MIT license does not grant rights to those third-party texts.
+The maintainer identifies [Mazii](https://mazii.net/) as the source of the
+Vietnamese kanji meanings and explanations, and [Jisho](https://jisho.org/) as
+the source of the English kanji meanings and readings, derived from KANJIDIC.
+KANJIDIC is credited to Jim Breen and the Electronic Dictionary Research and
+Development Group (EDRDG). See [SOURCES.md](SOURCES.md) for source and license links.
+Mazii's upstream source for the Vietnamese text and permission to redistribute
+it remain unverified. Vocabulary and other fields still need separate source
+confirmation. The project's MIT license does not cover these third-party texts.
 
 ## Limitations and support
 

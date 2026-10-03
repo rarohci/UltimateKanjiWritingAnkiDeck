@@ -37,14 +37,17 @@ see [LICENSE.md](LICENSE.md).
 ## Independence, sources, and rights
 
 This is an independent project, not affiliated with or endorsed by Anki,
-AnkiDroid, WaniKani, KanjiVG, Hanzi Writer, or the Noto project. Names identify
+AnkiDroid, WaniKani, Mazii, Jisho, EDRDG, KanjiVG, Hanzi Writer, or the Noto project. Names identify
 software, source materials, or deck organization and do not imply endorsement.
 
 Original project code is MIT licensed. KanjiVG-derived data, Hanzi Writer, and
 the font retain their respective licenses, linked in [LICENSE.md](LICENSE.md).
-The origins and terms for all vocabulary, dictionary text, and multilingual
-reference fields are not yet fully documented. Do not interpret the project
-license as a blanket license for the entire dataset.
+Vietnamese meanings and explanations are attributed to Mazii; English kanji
+meanings and readings are attributed to Jisho/KANJIDIC, as reported by the
+maintainer. See [SOURCES.md](SOURCES.md). Mazii's upstream Vietnamese sources
+and redistribution permission remain unverified, as do the sources of other
+fields not listed there. Attribution alone does not establish permission.
+Do not interpret the project license as a blanket license for the entire dataset.
 
 ## Corrections and source concerns
 

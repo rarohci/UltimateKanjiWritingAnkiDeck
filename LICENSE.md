@@ -47,10 +47,18 @@ The customized embedded Hanzi Writer library is copyright (c) 2014 David Chanin
 and is distributed under MIT. See [HANZI-WRITER-LICENSE.txt](HANZI-WRITER-LICENSE.txt)
 and the [upstream project](https://github.com/chanind/hanzi-writer).
 
-Vocabulary, dictionary definitions, and multilingual reference text are not
-automatically covered by the original-code MIT grant. Their complete provenance
-and applicable redistribution terms remain to be documented. This repository
-does not claim ownership of third-party text or grant additional rights to it.
+English kanji meanings and readings were obtained from Jisho, with KANJIDIC
+identified by the maintainer as the underlying source. Copyright in the covered
+dictionary data is held by James William Breen and EDRDG. EDRDG's current
+[license statement](https://www.edrdg.org/edrdg/licence.html) specifies CC BY-SA
+4.0 and additional notices for KANJIDIC data. The exact source snapshot used by
+this deck is not recorded. See [SOURCES.md](SOURCES.md).
+
+Vietnamese kanji meanings and explanations were obtained from Mazii. Their
+upstream origin and redistribution permission have not been verified; this
+project does not place those texts under MIT. Vocabulary and other reference
+fields require separate provenance confirmation. This repository does not
+claim ownership of third-party text or grant additional rights to it.
 
 The MIT License for original project files does not replace or override the
 licenses of third-party materials. When redistributing the complete Anki deck,
