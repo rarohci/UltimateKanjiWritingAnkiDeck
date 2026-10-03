@@ -43,6 +43,15 @@ See [`_NotoSerifJP-OFL.txt`](_NotoSerifJP-OFL.txt) for the complete license.
 
 ## Scope
 
+The customized embedded Hanzi Writer library is copyright (c) 2014 David Chanin
+and is distributed under MIT. See [HANZI-WRITER-LICENSE.txt](HANZI-WRITER-LICENSE.txt)
+and the [upstream project](https://github.com/chanind/hanzi-writer).
+
+Vocabulary, dictionary definitions, and multilingual reference text are not
+automatically covered by the original-code MIT grant. Their complete provenance
+and applicable redistribution terms remain to be documented. This repository
+does not claim ownership of third-party text or grant additional rights to it.
+
 The MIT License for original project files does not replace or override the
 licenses of third-party materials. When redistributing the complete Anki deck,
 keep the applicable attribution and license files with it.

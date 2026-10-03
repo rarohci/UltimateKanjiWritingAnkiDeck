@@ -5,6 +5,11 @@ readings and meanings, and practicing stroke order. It includes multilingual
 references, stroke diagrams, vocabulary examples, and an interactive writing
 card.
 
+[Download v1.2.0](https://github.com/rarohci/UltimateKanjiWritingAnkiDeck/releases/tag/v1.2.0)
+· [Usage guide](HOW_TO_USE.md)
+· [Limitations and disclaimer](DISCLAIMER.md)
+· [Report a problem](https://github.com/rarohci/UltimateKanjiWritingAnkiDeck/issues)
+
 ## v1.2.0 contents
 
 | Item | Count or value |
@@ -51,13 +56,18 @@ For a balanced starting setup, open the deck's **Options** and use:
 
 - **FSRS:** enable it when available and start with a desired retention of
   about **90%**. Re-optimize after you have accumulated real review history.
-- **Learning steps:** `10m 1d` keeps a new kanji active without showing it too
-  many times in one session.
+- **Learning steps with FSRS:** a short step such as `10m` is a starting
+  example; avoid steps of one day or longer.
 - **Relearning steps:** `10m` is a useful default after a failed review.
-- **New cards:** add roughly **5–10 kanji per day** until the review workload
-  is comfortable. Increase gradually rather than adding a large backlog.
+- **New cards:** begin with a manageable daily card limit and adjust to your
+  workload. Limits count cards, and this deck has two cards per kanji.
 - **Bury siblings:** enable burying new and review siblings so the learning and
   writing cards for the same note do not appear back-to-back.
+
+These are optional starting points, not required deck settings. See the
+[official deck-options guide](https://docs.ankiweb.net/deck-options.html#fsrs)
+for current FSRS guidance. Create a separate options preset if you do not want
+changes to affect other decks sharing the same preset.
 
 Use **Again** when you could not recall the character or its meaning, **Hard**
 when the answer was uncertain or slow, **Good** when recall was comfortable,
@@ -142,9 +152,32 @@ built-in whiteboard off while using the writing card.
 
 ## Source and license notes
 
+Original project code and documentation are free to use and modify under MIT;
+third-party materials retain their own terms. The embedded customized
+[Hanzi Writer](https://github.com/chanind/hanzi-writer) v2.2.2 library is by
+David Chanin and uses the MIT license; see
+[HANZI-WRITER-LICENSE.txt](HANZI-WRITER-LICENSE.txt).
+
 The stroke graphics originate from KanjiVG data and retain their source notices.
 See [KANJIVG-LICENSE.txt](KANJIVG-LICENSE.txt) for attribution, license, and
 source links.
 The included Noto Serif JP font is distributed with its `_NotoSerifJP-OFL.txt`
 license file. See [LICENSE.md](LICENSE.md) for the repository license breakdown
 and [CHANGELOG.md](CHANGELOG.md) for the v1.2.0 changes.
+
+The origins and redistribution terms of all vocabulary, dictionary definitions,
+and multilingual reference fields have not yet been fully documented. The
+project's MIT license does not grant rights to those third-party texts.
+
+## Limitations and support
+
+This is an independent community project, not an official Anki or WaniKani
+product. Readings and definitions may contain errors or omissions. Handwriting
+acceptance is approximate, especially for short, bent, or hooked strokes;
+acceptance is not a grade of handwriting quality.
+
+The preview images are browser renders of the current front templates with a
+real note. They do not demonstrate compatibility with every client or show the
+answer side. See [DISCLAIMER.md](DISCLAIMER.md) for details and reporting
+instructions. Back up your collection before importing updates or editing
+templates; see the [update guide](HOW_TO_USE.md#updating-an-existing-deck).

@@ -1,4 +1,12 @@
-﻿# v1.1.0 — Changes since v1.0
+# Unreleased — Documentation
+
+- Replaced mockups with actual front-template screenshots.
+- Added download/support links, backup guidance, and compatibility limitations.
+- Added handwriting and data-accuracy disclaimers.
+- Added Hanzi Writer attribution and clarified unresolved text-data provenance.
+- Corrected the FSRS learning-step example and daily card-limit explanation.
+
+# v1.1.0 — Changes since v1.0
 
 - Added stroke Undo, Redo, and Restart controls.
 - Added random reading or meaning prompts with a switch button.

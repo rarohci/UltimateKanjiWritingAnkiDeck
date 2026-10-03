@@ -78,6 +78,11 @@ The names of gesture settings vary between AnkiDroid versions.
 
 ## Updating the templates
 
+Changing files in this repository does not update a deck already imported into
+Anki. Copy each complete front/back template into the matching card type and
+copy `templates/style.css` into Styling. Save copies of your current templates
+before replacing them.
+
 The source templates are provided for developers who want to customize the
 cards. In Anki, open **Tools → Manage Note Types**, select `japanese+`, and
 edit the card templates or styling. Keep the field names unchanged unless you
@@ -110,3 +115,33 @@ The `vocab` field accepts entries separated by new lines or `<br>`:
 
 The format is `word|reading|meaning`. The writing hint selects only entries
 whose word contains the current kanji.
+
+## Updating an existing deck
+
+1. Back up your collection, including media, and save any custom templates.
+2. Download the `.apkg` from the release you intend to install and read its notes.
+3. If you have customized notes or templates, first try the import in a separate
+   profile. Check the import summary and inspect representative cards.
+4. Confirm that your edits, review history, media, and both card types behave as
+   expected before continuing normal study and synchronization.
+
+Do not delete your existing deck merely to install an update. Import behavior
+depends on note identity, your client version, and import options; preservation
+of every local customization is not guaranteed.
+
+## Appearance and writing limitations
+
+The templates select light/dark colors through the client's system-color-scheme
+signal. This can differ from an app's own theme setting. The writing grid scales
+with the viewport; font rendering, gestures, and spacing can vary by client.
+
+Short bends and hooks can be rejected even when they look close to the reference.
+Compare stroke order, direction, and endpoints with the answer. A thicker pen
+changes the visible line and does not guarantee greater acceptance tolerance.
+Use your own recall to choose a review grade. Drawing history is temporary and
+is not a saved handwriting record.
+
+For problems, include the kanji, stroke number, card side, app/version, device,
+and a screenshot in a
+[GitHub issue](https://github.com/rarohci/UltimateKanjiWritingAnkiDeck/issues).
+See [DISCLAIMER.md](DISCLAIMER.md) for data and compatibility limitations.
