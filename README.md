@@ -23,9 +23,11 @@ All cards are new when the package is generated; it contains no review history.
 
 ## Card previews
 
-![Learning card preview](docs/preview-learning-card.svg)
+Screenshots of the actual front templates using the 漢 note from the deck.
 
-![Writing card preview](docs/preview-writing-card.svg)
+![Learning card preview](docs/preview-learning-card.png)
+
+![Writing card preview](docs/preview-writing-card.png)
 
 ## Install
 
