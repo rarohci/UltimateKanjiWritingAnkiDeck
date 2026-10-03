@@ -3,3 +3,11 @@
 
 #decks collection
 *.colpkg
+
+# Local exports and generated validation files
+All Decks.apkg
+temporary/
+output/
+tests/
+__pycache__/
+*.pyc

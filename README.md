@@ -1,84 +1,120 @@
 # Ultimate Kanji Writing Anki Deck
 
-An Anki deck for learning kanji and practicing handwriting, with interactive stroke practice, vocabulary examples, and multilingual reference information.
+Ultimate Kanji Writing is an Anki deck for learning Japanese kanji, reviewing
+readings and meanings, and practicing stroke order. It includes multilingual
+references, stroke diagrams, vocabulary examples, and an interactive writing
+card.
 
-## Deck contents
+## v1.2.0 contents
 
-| Item | Included |
+| Item | Count or value |
 | --- | --- |
-| Kanji entries | 6,396 unique characters |
-| Cards | 12,792 — two per character |
+| Kanji notes | 6,396 |
+| Cards | 12,792 — two cards per note |
 | Note type | `japanese+` |
 | Card types | `learningCard` and `writingCard` |
-| Organization | Main deck and 60 WaniKani-level subdecks |
-| Vocabulary | 56,089 entries across 5,390 kanji notes |
+| WaniKani subdecks | 60 |
+| No-vocabulary subdeck | 1,006 notes / 2,012 cards |
+| Vocabulary entries | 56,089 across 5,390 notes |
 | Package | `ultimateKanjiWritingAnkiDeck.apkg` |
 
-Vocabulary totals count entries across notes. A word containing several kanji can appear in more than one note. Some characters remain in the main deck rather than a level subdeck.
+The package also contains 6,396 SVG media files and the Noto Serif JP font.
+All cards are new when the package is generated; it contains no review history.
 
-## Card types
+## Install
 
-### Learning card
+1. Open Anki.
+2. Select **File → Import**.
+3. Choose `ultimateKanjiWritingAnkiDeck.apkg`.
+4. Confirm the import and select the destination collection.
 
-The front displays the kanji alongside Sino-Vietnamese, Korean, and Mandarin readings where available.
+AnkiDroid users can open the same `.apkg` from the device or import it through
+Anki Desktop and synchronize.
 
-The back provides stroke diagrams, Japanese readings, definitions, Vietnamese explanations, radicals, components, related characters, and vocabulary.
+For the complete walkthrough, see [HOW_TO_USE.md](HOW_TO_USE.md).
 
-### Writing card
+## Using Anki's SRS for memorization
 
-Practice drawing the kanji with interactive stroke checking.
+The deck uses Anki's scheduler to decide when each card returns. The learning
+and writing cards are separate cards, so Anki schedules them independently.
+This lets you recognize a kanji before requiring accurate written recall.
 
-- **Undo:** remove the last accepted stroke.
-- **Redo:** restore an undone stroke.
-- **Restart:** clear the drawing and its stroke history.
-- **Show reading / Show meaning:** switch between the two prompts.
+For a balanced starting setup, open the deck's **Options** and use:
 
-Each time the writing front renders, it independently chooses readings or meaning with a 50% chance for each. The multilingual reference section stays visible when switching prompts.
+- **FSRS:** enable it when available and start with a desired retention of
+  about **90%**. Re-optimize after you have accumulated real review history.
+- **Learning steps:** `10m 1d` keeps a new kanji active without showing it too
+  many times in one session.
+- **Relearning steps:** `10m` is a useful default after a failed review.
+- **New cards:** add roughly **5–10 kanji per day** until the review workload
+  is comfortable. Increase gradually rather than adding a large backlog.
+- **Bury siblings:** enable burying new and review siblings so the learning and
+  writing cards for the same note do not appear back-to-back.
 
-Undo and Redo affect handwriting strokes, not Anki review history. Rejected strokes do not enter the undo history.
+Use **Again** when you could not recall the character or its meaning, **Hard**
+when the answer was uncertain or slow, **Good** when recall was comfortable,
+and **Easy** only when the answer was immediate. On a writing card, choose the
+grade based on whether you produced the stroke order from memory; do not mark a
+card Easy just because the visual hint made it easier.
 
-## Random vocabulary hints
+For stronger writing retention, study the learning card first, then attempt the
+writing card before pressing **Show Answer**. If the stroke order is repeatedly
+wrong, use **Again** and redraw it once while the reference is visible. Keep the
+writing card in the same deck as its learning sibling so both follow the same
+long-term review plan.
 
-A random word from the note's `vocab` field appears with the current kanji replaced by an outlined square.
+If reviews become too heavy, reduce the daily new-card limit or suspend a small
+set of difficult cards temporarily. Avoid resetting the entire deck; that
+removes the scheduling history that makes SRS useful.
 
-For example, when practicing **歓**:
+## Learning cards
 
-- 歓声 → □声
-- 歓迎 → □迎
-- 大歓迎 → 大□迎
-- 歓迎会 → □迎会
+The learning card shows the character and multilingual readings on the front.
+Its answer includes the stroke diagram, Japanese readings, meanings,
+Vietnamese explanations, radicals, components, related characters, and
+vocabulary.
 
-Only words containing the current character are selected. If no matching entry is available, the hint is hidden.
+## Writing cards
 
-## Vocabulary popups
+The writing card uses the bundled Hanzi Writer library and checks each accepted
+stroke against the note's SVG stroke data.
 
-Tap or click a vocabulary word on the back to display its reading and meaning directly below the word. The popup stays attached while scrolling, and long definitions scroll inside it.
+- **Undo** removes the last accepted stroke.
+- **Redo** restores an undone stroke.
+- **Restart** clears the drawing and chooses another matching vocabulary hint
+  when more than one is available.
+- **Show meaning / Show reading** switches the prompt.
 
-Tap the same word again to close the popup. Desktop users can also hover over a word or press Escape to dismiss the popup.
+Rejected strokes do not enter the Undo history. These controls affect the
+current practice session, not Anki's review scheduling.
 
-## Installation
+The writing hint masks the current kanji with a square. Tap or click the hint
+to open its reading and meaning popup; tap again, click outside, or press
+**Escape** to close it. Long definitions scroll inside the popup.
 
-1. Download `ultimateKanjiWritingAnkiDeck.apkg` from this repository or its Releases page.
-2. Import the package into Anki or AnkiDroid.
-3. Sync if you use Anki on multiple devices.
+## Deck organization
 
-The package includes the note type, card templates, and shared styling. Separate template installation is not required.
+The main deck is `ultimateKanjiWritingAnkiDeck`. WaniKani level subdecks are
+under it. Notes without vocabulary are placed in:
 
-## AnkiDroid writing setup
+```text
+ultimateKanjiWritingAnkiDeck::noVocabsKanji
+```
 
-To reduce accidental answer reveals while drawing:
+The no-vocabulary deck is useful when studying characters that do not have a
+word entry in the source data.
 
-1. Open **Settings → Gestures**.
-2. Set conflicting tap, double-tap, and swipe actions to **No action**.
-3. Check gestures assigned to **Answer button 1–4** as well; these may reveal the answer on the front.
-4. Use the explicit **Show Answer** button.
-5. Leave AnkiDroid's built-in whiteboard off while using the card's handwriting area.
+## Editing the note type
 
-Gesture options can vary by AnkiDroid version. See the [AnkiDroid manual](https://docs.ankidroid.org/manual.html#_gestures).
+The editable source templates are in `templates/`:
 
-## Editing vocabulary
+- `templates/learningCard/` contains learning-card templates.
+- `templates/writingCard/` contains writing-card templates.
+- `templates/style.css` contains shared styling.
 
-The vocabulary field is named `vocab`. Entries use this format:
+The writing front expects the `svg_data` field to contain JSON with matching
+`strokes` and `medians` arrays. The `vocab` field uses one entry per line or
+`<br>`:
 
 ```text
 歓声|かんせい|cheer, shout of joy
@@ -86,27 +122,18 @@ The vocabulary field is named `vocab`. Entries use this format:
 歓喜|かんき|delight, great joy
 ```
 
-Separate entries with newlines or `<br>`. Each entry contains the word, reading, and meaning, separated by `|`.
+Each entry is `word|reading|meaning`. A meaning may contain additional pipe
+characters; they remain part of the meaning.
 
-## Changes since v1.0
+## AnkiDroid gesture setup
 
-- Consolidated the deck into learning and writing card types.
-- Added handwriting Undo, Redo, and Restart controls.
-- Added random reading/meaning prompts and a switch button.
-- Added vocabulary hints with a square masking the target kanji.
-- Improved responsive buttons and shared card styling.
-- Added touch handling for writing and vocabulary interaction.
-- Anchored vocabulary popups to the selected word.
-- Merged vocabulary lists and removed duplicate words within each note.
-- Standardized vocabulary templates on the `vocab` field.
-- Removed unused scripts and simplified vocabulary rendering.
+To avoid revealing answers while drawing, open **Settings → Gestures** and set
+conflicting tap, double-tap, swipe, and **Answer button 1–4** gestures to
+**No action**. Use the explicit **Show Answer** button. Keep AnkiDroid's
+built-in whiteboard off while using the writing card.
 
-## Notes
+## Source and license notes
 
-Supporting information varies by character; some fields are empty. The package contains new cards and no review history.
-
-Handwriting controls use the bundled customized Hanzi Writer library. Replacing that library may require changes to the controls. Rendering and touch behavior can vary between Anki clients.
-
-## Credits
-
-Interactive handwriting uses [Hanzi Writer](https://hanziwriter.org/).
+The stroke graphics originate from KanjiVG data and retain their source notices.
+The included Noto Serif JP font is distributed with its `_NotoSerifJP-OFL.txt`
+license file. See [CHANGELOG.md](CHANGELOG.md) for the v1.2.0 changes.

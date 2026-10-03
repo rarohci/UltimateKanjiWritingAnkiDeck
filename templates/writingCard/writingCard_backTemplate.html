@@ -10,7 +10,7 @@
       <span style="font-weight: normal;">似ている漢字：</span>
       <span>{{Visually-Similar-Kanji}}</span>
     </div>
-		<hr>
+    <hr>
     <span>構成要素: {{elements}}、{{extra_elements}}</span>
     <br>
     <span>部分: {{kanji_parts}}</span>
@@ -24,8 +24,8 @@
     <span>音符: {{phonetic}}　|　形符:　{{idc}}</span>
     <br>
     <span>漢字の種類:　{{typeofkanji}}</span>
-		<hr>
-    <span>{{hanviet_imi}}</span><br>{{imi_explanation}}
+    <hr>
+    {{imi_explanation}}
   </div>
   <div class="kinfo" id="vocabulary-section">
     <div class="vocab-heading">単語一覧</div>
@@ -33,179 +33,193 @@
     <div id="vocab-source" hidden>{{vocab}}</div>
     <div id="vocab-popup" class="item_info" role="tooltip" hidden></div>
   </div>
-<script>
-(function () {
-  if (window.__kanjiVocabCleanup) window.__kanjiVocabCleanup();
-  const section = document.getElementById('vocabulary-section');
-  const list = section.querySelector('#common');
-  const popup = section.querySelector('#vocab-popup');
-  const source = section.querySelector('#vocab-source');
-  const text = document.createElement('div');
-  text.innerHTML = source.innerHTML.replace(/<br\s*\/?\s*>|<\/(?:div|p|li)>/gi, '\n');
-  const fragment = document.createDocumentFragment();
-  const records = new WeakMap();
-  let active = null;
-  let pinned = false;
+  <script>
+    (function () {
+      // Anki can reuse the webview between cards; release the previous global listeners.
+      if (window.__kanjiVocabCleanup) window.__kanjiVocabCleanup();
+      const section = document.getElementById('vocabulary-section');
+      const list = section.querySelector('#common');
+      const popup = section.querySelector('#vocab-popup');
+      const source = section.querySelector('#vocab-source');
+      const text = document.createElement('div');
+      // Normalize Anki rich-text line breaks before parsing word|reading|meaning.
+      text.innerHTML = source.innerHTML.replace(/<br\s*\/?\s*>|<\/(?:div|p|li)>/gi, '\n');
+      // Build off-screen, then insert the vocabulary in one DOM operation.
+      const fragment = document.createDocumentFragment();
+      const records = new WeakMap();
+      let active = null;
+      let pinned = false;
 
-  text.textContent.split(/\r\n|\r|\n/).forEach(line => {
-    const parts = line.split('|');
-    const word = (parts.shift() || '').trim();
-    const reading = (parts.shift() || '').trim();
-    const meaning = parts.join('|').trim();
-    if (!word) return;
-    const li = document.createElement('li');
-    if (!reading && !meaning) {
-      li.textContent = word;
-    } else {
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'item tappable';
-      button.textContent = word;
-      button.setAttribute('aria-expanded', 'false');
-      button.setAttribute('aria-controls', 'vocab-popup');
-      records.set(button, {reading, meaning});
-      const anchor = document.createElement('span');
-      anchor.className = 'vocab-anchor';
-      anchor.appendChild(button);
-      li.appendChild(anchor);
-    }
-    fragment.appendChild(li);
-  });
-  list.appendChild(fragment);
-  source.remove();
-  if (!list.children.length) section.hidden = true;
+      text.textContent.split(/\r\n|\r|\n/).forEach(line => {
+        const parts = line.split('|');
+        const word = (parts.shift() || '').trim();
+        const reading = (parts.shift() || '').trim();
+        // Preserve any additional pipe characters inside the definition.
+        const meaning = parts.join('|').trim();
+        if (!word) return;
+        const li = document.createElement('li');
+        if (!reading && !meaning) {
+          li.textContent = word;
+        } else {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'item tappable';
+          button.textContent = word;
+          button.setAttribute('aria-expanded', 'false');
+          button.setAttribute('aria-controls', 'vocab-popup');
+          records.set(button, { reading, meaning });
+          const anchor = document.createElement('span');
+          anchor.className = 'vocab-anchor';
+          anchor.appendChild(button);
+          li.appendChild(anchor);
+        }
+        fragment.appendChild(li);
+      });
+      list.appendChild(fragment);
+      source.remove();
+      if (!list.children.length) section.hidden = true;
 
-  function close() {
-    if (active) {
-      active.setAttribute('aria-expanded', 'false');
-      active.removeAttribute('aria-describedby');
-    }
-    active = null;
-    pinned = false;
-    popup.hidden = true;
-  }
-  function position() {
-    if (!active) return;
-    // Stay attached to the word, as in the original relative/absolute popup.
-    // Only shift horizontally when necessary to avoid the screen edges.
-    const viewport = window.visualViewport;
-    const width = viewport ? viewport.width : document.documentElement.clientWidth;
-    const edge = viewport ? viewport.offsetLeft : 0;
-    popup.style.maxWidth = Math.min(320, width - 24) + 'px';
-    popup.style.left = '0px';
-    const box = popup.getBoundingClientRect();
-    const shift = Math.max(edge + 12 - box.left, Math.min(0, edge + width - 12 - box.right));
-    popup.style.left = shift + 'px';
-  }
-  function open(button) {
-    if (active !== button) close();
-    active = button;
-    button.parentElement.appendChild(popup);
-    const entry = records.get(button);
-    popup.textContent = '';
-    if (entry.reading) {
-      const line = document.createElement('div');
-      line.textContent = '読み: ' + entry.reading;
-      popup.appendChild(line);
-    }
-    if (entry.meaning) {
-      const line = document.createElement('div');
-      line.textContent = '意味: ' + entry.meaning;
-      popup.appendChild(line);
-    }
-    popup.hidden = false;
-    button.setAttribute('aria-expanded', 'true');
-    button.setAttribute('aria-describedby', 'vocab-popup');
-    position();
-  }
-  let touch = null;
-  let suppressClickUntil = 0;
-  function toggle(button) {
-    if (active === button && pinned) close();
-    else { open(button); pinned = true; }
-  }
-  list.addEventListener('touchstart', event => {
-    const button = event.target.closest('.item');
-    if (!button || !records.has(button) || event.touches.length !== 1) {
-      touch = null;
-      return;
-    }
-    const point = event.touches[0];
-    touch = {button, x: point.clientX, y: point.clientY, moved: false};
-    event.stopPropagation();
-  }, {passive: true});
-  list.addEventListener('touchmove', event => {
-    if (!touch) return;
-    if (event.touches.length !== 1) { touch.moved = true; return; }
-    const point = event.touches[0];
-    if (Math.abs(point.clientX - touch.x) > 12 || Math.abs(point.clientY - touch.y) > 12) touch.moved = true;
-  }, {passive: true});
-  list.addEventListener('touchcancel', () => { touch = null; }, {passive: true});
-  list.addEventListener('touchend', event => {
-    const gesture = touch;
-    touch = null;
-    if (!gesture || gesture.moved || event.touches.length) return;
-    const point = event.changedTouches[0];
-    if (!point || Math.abs(point.clientX - gesture.x) > 12 || Math.abs(point.clientY - gesture.y) > 12) return;
-    if (event.cancelable) event.preventDefault();
-    event.stopPropagation();
-    // Suppress a delayed synthetic click so one tap cannot toggle twice.
-    suppressClickUntil = Date.now() + 800;
-    toggle(gesture.button);
-  }, {passive: false});
-  list.addEventListener('click', event => {
-    const button = event.target.closest('.item');
-    if (!button || !records.has(button)) return;
-    event.preventDefault();
-    event.stopPropagation();
-    if (Date.now() < suppressClickUntil && event.detail !== 0) return;
-    toggle(button);
-  });
-  list.addEventListener('pointerover', event => {
-    if (event.pointerType !== 'mouse' || pinned || Date.now() < suppressClickUntil) return;
-    const button = event.target.closest('.item');
-    if (button && records.has(button)) open(button);
-  });
-  section.addEventListener('pointerleave', event => {
-    if (event.pointerType === 'mouse' && !pinned && !popup.contains(event.relatedTarget)) close();
-  });
-  popup.addEventListener('pointerleave', event => {
-    if (event.pointerType === 'mouse' && !pinned && !section.contains(event.relatedTarget)) close();
-  });
-  function outside(event) {
-    if (Date.now() < suppressClickUntil) return;
-    if (active && !active.contains(event.target) && !popup.contains(event.target)) close();
-  }
-  function escape(event) { if (event.key === 'Escape') close(); }
-  document.addEventListener('click', outside);
-  document.addEventListener('keydown', escape);
-  window.addEventListener('resize', position);
-  function onScroll(event) {
-    if (event.target !== popup) position();
-  }
-  window.addEventListener('scroll', onScroll, true);
-  if (window.visualViewport) {
-    window.visualViewport.addEventListener('resize', position);
-    window.visualViewport.addEventListener('scroll', position);
-  }
-  const observer = new MutationObserver(() => {
-    if (!section.isConnected) cleanup();
-  });
-  observer.observe(document.documentElement, {childList:true, subtree:true});
-  function cleanup() {
-    observer.disconnect();
-    popup.remove();
-    document.removeEventListener('click', outside);
-    document.removeEventListener('keydown', escape);
-    window.removeEventListener('resize', position);
-    window.removeEventListener('scroll', onScroll, true);
-    if (window.visualViewport) {
-      window.visualViewport.removeEventListener('resize', position);
-      window.visualViewport.removeEventListener('scroll', position);
-    }
-    close();
-  }
-  window.__kanjiVocabCleanup = cleanup;
-})();
-</script>
+      function close() {
+        if (active) {
+          active.setAttribute('aria-expanded', 'false');
+          active.removeAttribute('aria-describedby');
+        }
+        active = null;
+        pinned = false;
+        popup.hidden = true;
+      }
+      function position() {
+        if (!active) return;
+        // Stay attached to the word, as in the original relative/absolute popup.
+        // Only shift horizontally when necessary to avoid the screen edges.
+        const viewport = window.visualViewport;
+        const width = viewport ? viewport.width : document.documentElement.clientWidth;
+        const edge = viewport ? viewport.offsetLeft : 0;
+        popup.style.maxWidth = Math.min(320, width - 24) + 'px';
+        popup.style.left = '0px';
+        const box = popup.getBoundingClientRect();
+        const shift = Math.max(edge + 12 - box.left, Math.min(0, edge + width - 12 - box.right));
+        popup.style.left = shift + 'px';
+      }
+      function open(button) {
+        if (active !== button) close();
+        active = button;
+        button.parentElement.appendChild(popup);
+        const entry = records.get(button);
+        popup.textContent = '';
+        if (entry.reading) {
+          const line = document.createElement('div');
+          line.textContent = '読み: ' + entry.reading;
+          popup.appendChild(line);
+        }
+        if (entry.meaning) {
+          const line = document.createElement('div');
+          line.textContent = '意味: ' + entry.meaning;
+          popup.appendChild(line);
+        }
+        popup.hidden = false;
+        button.setAttribute('aria-expanded', 'true');
+        button.setAttribute('aria-describedby', 'vocab-popup');
+        position();
+      }
+      // Distinguish a tap from scrolling; pinned popups stay open after pointer leave.
+      let touch = null;
+      let suppressClickUntil = 0;
+      function toggle(button) {
+        if (active === button && pinned) close();
+        else {
+          open(button);
+          pinned = true;
+        }
+      }
+      list.addEventListener('touchstart', event => {
+        const button = event.target.closest('.item');
+        if (!button || !records.has(button) || event.touches.length !== 1) {
+          touch = null;
+          return;
+        }
+        const point = event.touches[0];
+        touch = { button, x: point.clientX, y: point.clientY, moved: false };
+        event.stopPropagation();
+      }, { passive: true });
+      list.addEventListener('touchmove', event => {
+        if (!touch) return;
+        if (event.touches.length !== 1) {
+          touch.moved = true;
+          return;
+        }
+        const point = event.touches[0];
+        if (Math.abs(point.clientX - touch.x) > 12 || Math.abs(point.clientY - touch.y) > 12) touch.moved = true;
+      }, { passive: true });
+      list.addEventListener('touchcancel', () => { touch = null; }, { passive: true });
+      list.addEventListener('touchend', event => {
+        const gesture = touch;
+        touch = null;
+        if (!gesture || gesture.moved || event.touches.length) return;
+        const point = event.changedTouches[0];
+        if (!point || Math.abs(point.clientX - gesture.x) > 12 || Math.abs(point.clientY - gesture.y) > 12) return;
+        if (event.cancelable) event.preventDefault();
+        event.stopPropagation();
+        // Suppress a delayed synthetic click so one tap cannot toggle twice.
+        suppressClickUntil = Date.now() + 800;
+        toggle(gesture.button);
+      }, { passive: false });
+      list.addEventListener('click', event => {
+        const button = event.target.closest('.item');
+        if (!button || !records.has(button)) return;
+        event.preventDefault();
+        event.stopPropagation();
+        if (Date.now() < suppressClickUntil && event.detail !== 0) return;
+        toggle(button);
+      });
+      list.addEventListener('pointerover', event => {
+        if (event.pointerType !== 'mouse' || pinned || Date.now() < suppressClickUntil) return;
+        const button = event.target.closest('.item');
+        if (button && records.has(button)) open(button);
+      });
+      section.addEventListener('pointerleave', event => {
+        if (event.pointerType === 'mouse' && !pinned && !popup.contains(event.relatedTarget)) close();
+      });
+      popup.addEventListener('pointerleave', event => {
+        if (event.pointerType === 'mouse' && !pinned && !section.contains(event.relatedTarget)) close();
+      });
+      function outside(event) {
+        if (Date.now() < suppressClickUntil) return;
+        if (active && !active.contains(event.target) && !popup.contains(event.target)) close();
+      }
+      function escape(event) {
+        if (event.key === 'Escape') close();
+      }
+      document.addEventListener('click', outside);
+      document.addEventListener('keydown', escape);
+      window.addEventListener('resize', position);
+      function onScroll(event) {
+        if (event.target !== popup) position();
+      }
+      window.addEventListener('scroll', onScroll, true);
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', position);
+        window.visualViewport.addEventListener('scroll', position);
+      }
+      const observer = new MutationObserver(() => {
+        if (!section.isConnected) cleanup();
+      });
+      observer.observe(document.documentElement, { childList: true, subtree: true });
+      // Remove document/window listeners when Anki replaces this card.
+      function cleanup() {
+        observer.disconnect();
+        popup.remove();
+        document.removeEventListener('click', outside);
+        document.removeEventListener('keydown', escape);
+        window.removeEventListener('resize', position);
+        window.removeEventListener('scroll', onScroll, true);
+        if (window.visualViewport) {
+          window.visualViewport.removeEventListener('resize', position);
+          window.visualViewport.removeEventListener('scroll', position);
+        }
+        close();
+      }
+      window.__kanjiVocabCleanup = cleanup;
+    })();
+  </script>
 </body>
