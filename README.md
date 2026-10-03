@@ -138,4 +138,5 @@ The stroke graphics originate from KanjiVG data and retain their source notices.
 See [KANJIVG-LICENSE.txt](KANJIVG-LICENSE.txt) for attribution, license, and
 source links.
 The included Noto Serif JP font is distributed with its `_NotoSerifJP-OFL.txt`
-license file. See [CHANGELOG.md](CHANGELOG.md) for the v1.2.0 changes.
+license file. See [LICENSE.md](LICENSE.md) for the repository license breakdown
+and [CHANGELOG.md](CHANGELOG.md) for the v1.2.0 changes.
